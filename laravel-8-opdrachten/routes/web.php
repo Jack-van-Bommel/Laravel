@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AgendaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,48 +13,12 @@ use App\Http\Controllers\AgendaController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-// Route::get('hello', function() {
-//     echo "Hello World";
-// } );
-
-Route::get( '/mooiekop', function() {
-    $kop = 'Dit is een mooie kop';
-    return view( 'jack' )->with( 'kop', $kop );
+Route::get('/', function () {
+    return view('welcome');
 });
 
-// Route::get( '/{param}', function( string $param ) {
-//     echo "Hallo $param";
-// });
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
-
-// Routes for todoes database
-Route::get( '/create', function(){
-
-});
-
-Route::get( '/delete', function(){
-
-});
-
-Route::get( '/update', function(){
-
-});
-
-Route::resources([
-    'agenda' => AgendaController::class,
-]);
-
-Route::get( 'testedit/{id}',  function($id) {
-    $oAgenda = \App\Models\Agenda::find($id);
-
-    $oAgenda->naam = 'AANGEPAST';
-    $oAgenda->save();
-});
-
-Route::get( 'testdelete/{id}', function($id) {
-    \App\Models\Agenda::destory($id);
-});
+require __DIR__.'/auth.php';
